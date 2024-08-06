@@ -1,11 +1,10 @@
 /*!
-* Start Bootstrap - Agency v7.0.12 (https://startbootstrap.com/theme/agency)
-* Copyright 2013-2023 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-agency/blob/master/LICENSE)
-*/
-//
+ * Start Bootstrap - Agency v7.0.12 (https://startbootstrap.com/theme/agency)
+ * Copyright 2013-2023 Start Bootstrap
+ * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-agency/blob/master/LICENSE)
+ */
+
 // Scripts
-// 
 
 window.addEventListener('DOMContentLoaded', event => {
 
@@ -20,7 +19,6 @@ window.addEventListener('DOMContentLoaded', event => {
         } else {
             navbarCollapsible.classList.add('navbar-shrink')
         }
-
     };
 
     // Shrink the navbar 
@@ -29,14 +27,14 @@ window.addEventListener('DOMContentLoaded', event => {
     // Shrink the navbar when page is scrolled
     document.addEventListener('scroll', navbarShrink);
 
-    //  Activate Bootstrap scrollspy on the main nav element
+    // Activate Bootstrap scrollspy on the main nav element
     const mainNav = document.body.querySelector('#mainNav');
     if (mainNav) {
         new bootstrap.ScrollSpy(document.body, {
             target: '#mainNav',
             rootMargin: '0px 0px -40%',
         });
-    };
+    }
 
     // Collapse responsive navbar when toggler is visible
     const navbarToggler = document.body.querySelector('.navbar-toggler');
@@ -49,6 +47,37 @@ window.addEventListener('DOMContentLoaded', event => {
                 navbarToggler.click();
             }
         });
+    });
+
+    // Initialize EmailJS
+    (function() {
+        emailjs.init("WcrrB8cuijapfogbl"); // Substitua com sua chave pública do EmailJS
+    })();
+
+    // Form validation and submission
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Validar formulário
+        var form = event.target;
+        if (!form.checkValidity()) {
+            event.stopPropagation();
+            form.classList.add('was-validated');
+            return;
+        }
+
+        // Enviar o e-mail
+        emailjs.sendForm('service_ddz4rr8', 'template_hhyvxxw', form)
+            .then(function(response) {
+                console.log('Sent successfully:', response);
+                alert('Sua mensagem foi enviada com sucesso!');
+                form.reset();
+                form.classList.remove('was-validated');
+            })
+            .catch(function(error) {
+                console.log('Failed to send:', error);
+                alert('Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente.');
+            });
     });
 
 });
