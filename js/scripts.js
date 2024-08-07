@@ -51,7 +51,7 @@ window.addEventListener('DOMContentLoaded', event => {
 
     // Initialize EmailJS
     (function() {
-        emailjs.init("WcrrB8cuijapfogbl"); // Substitua com sua chave pública do EmailJS
+        emailjs.init("WcrrB8cuijapfogbl"); 
     })();
 
     // Form validation and submission
