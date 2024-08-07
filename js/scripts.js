@@ -15,13 +15,13 @@ window.addEventListener('DOMContentLoaded', event => {
             return;
         }
         if (window.scrollY === 0) {
-            navbarCollapsible.classList.remove('navbar-shrink')
+            navbarCollapsible.classList.remove('navbar-shrink');
         } else {
-            navbarCollapsible.classList.add('navbar-shrink')
+            navbarCollapsible.classList.add('navbar-shrink');
         }
     };
 
-    // Shrink the navbar 
+    // Shrink the navbar
     navbarShrink();
 
     // Shrink the navbar when page is scrolled
@@ -51,23 +51,28 @@ window.addEventListener('DOMContentLoaded', event => {
 
     // Initialize EmailJS
     (function() {
-        emailjs.init("WcrrB8cuijapfogbl"); 
+        emailjs.init("WcrrB8cuijapfogbl");
     })();
 
     // Form validation and submission
     document.getElementById('contact-form').addEventListener('submit', function(event) {
         event.preventDefault();
+        event.stopPropagation();
 
-        // Validar formulário
-        var form = event.target;
-        if (!form.checkValidity()) {
-            event.stopPropagation();
+        const form = event.target;
+        if (form.checkValidity() === false) {
             form.classList.add('was-validated');
             return;
         }
 
+        const templateParams = {
+            name: form.name.value,
+            email: form.email.value,
+            message: form.desc.value
+        };
+
         // Enviar o e-mail
-        emailjs.sendForm('service_ddz4rr8', 'template_hhyvxxw', form)
+        emailjs.send('service_ddz4rr8', 'template_hhyvxxw', templateParams)
             .then(function(response) {
                 console.log('Sent successfully:', response);
                 alert('Sua mensagem foi enviada com sucesso!');
@@ -79,5 +84,4 @@ window.addEventListener('DOMContentLoaded', event => {
                 alert('Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente.');
             });
     });
-
 });
